@@ -20,3 +20,19 @@ export const getUserById = async (id: string) => {
         return null
     }
 }
+export const getAllUsers = async ()=> {
+    try {
+        const users = await db.user.findMany({
+            select:{
+                id:true,
+                name:true,
+                email:true,
+                emailVerified:true,
+                role:true
+            }
+        })
+        return users
+    } catch  {
+        return null
+    }
+}
