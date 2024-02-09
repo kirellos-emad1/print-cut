@@ -32,7 +32,7 @@ export const CreateProductForm = () => {
   const onSubmit = async (values: z.infer<typeof CreateProduct>) => {
     setError("");
     setSuccess("");
-    let arr = [];
+    let arr : Array<string> = [];
     try {
       if (!images) return;
       for (let i = 0; i < images.length; i++) {
