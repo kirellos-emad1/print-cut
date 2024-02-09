@@ -1,3 +1,4 @@
+import { title } from "process";
 import * as z from "zod"
 
 export const LoginSchema = z.object({
@@ -25,7 +26,26 @@ export const ResetSchema = z.object({
   }),
 });
 export const NewPasswordSchema = z.object({
-  password: z.string().min(8,{
+  password: z.string().min(8, {
     message: "Minimum of 8 characters required",
   }),
+});
+
+export const CreateProduct = z.object({
+  category: z.string().min(3, {
+    message: "please add a valid category"
+  }),
+  title: z.string().min(3, {
+    message: "Please add a valid title"
+  }),
+  summary: z.string().min(3, {
+    message: "Please add a valid summary"
+  }),
+  images: z.array(z.string()).optional(),
+  description: z.string().min(3, {
+    message: "please add a valid description"
+  }),
+  price_by_meter: z.string(),
+  quantity_by_meter: z.string(),
+  // created_by: z.string(),
 });

@@ -30,38 +30,42 @@ const dashboard = async () => {
             </tr>
           </thead>
           <tbody>
-            {allUsersData?.map((user) => (
-              <tr
-                key={user.id}
-                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-              >
-                <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  {user.email}
-                </td>
-                <td className="px-6 py-4">{user.name}</td>
-                <td className="px-6 py-4">{user.role}</td>
-                <td className="px-6 py-4">
-                  {user.emailVerified ? "Yes" : "No"}
-                </td>
-                <td className=" text-destructive/90 font-semibold px-6 py-4">
-                  <form
-                    action={async () => {
-                      "use server";
-                      deleteUser(user.id);
-                    }}
+            {allUsersData?.map(
+              (user) =>
+                user.role !== "ADMIN" && (
+                  <tr
+                    key={user.id}
+                    className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
                   >
-                    <Button
-                      size="sm"
-                      type="submit"
-                      variant="outline"
-                      className="hover:text-destructive"
-                    >
-                      Delete
-                    </Button>
-                  </form>
-                </td>
-              </tr>
-            ))}
+                    <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                      {user.email}
+                    </td>
+                    <td className="px-6 py-4">{user.name}</td>
+                    <td className="px-6 py-4">{user.role}</td>
+                    <td className="px-6 py-4">
+                      {user.emailVerified ? "Yes" : "No"}
+                    </td>
+                    <td className=" text-destructive/90 font-semibold px-6 py-4">
+                      <form
+                        onSubmit={async (e) => {
+                          "use server";
+                          e.preventDefault();
+                          deleteUser(user.id);
+                        }}
+                      >
+                        <Button
+                          size="sm"
+                          type="submit"
+                          variant="outline"
+                          className="hover:text-destructive"
+                        >
+                          Delete
+                        </Button>
+                      </form>
+                    </td>
+                  </tr>
+                )
+            )}
           </tbody>
         </table>
       </div>
