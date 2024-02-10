@@ -29,33 +29,35 @@ export const CreateProductForm = () => {
   const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
 
+  const submitImage = async () => {
+    let arr: Array<string> = [];
+    if (!images) return;
+    for (let i = 0; i < images.length; i++) {
+      try {
+        const data = await uploadCloudinary(images[i]);
+        arr.push(data.url);
+        return arr;
+      } catch (uploadError) {
+        console.error("Error uploading an image:", uploadError);
+        return arr
+      }
+    }
+  };
+
   const onSubmit = async (values: z.infer<typeof CreateProduct>) => {
+    const arr = await submitImage();
     setError("");
     setSuccess("");
-    let arr : Array<string> = [];
-    try {
-      if (!images) return;
-      for (let i = 0; i < images.length; i++) {
-        try {
-          const data = await uploadCloudinary(images[i]);
-          arr.push(data.url);
-        } catch (uploadError) {
-          console.error("Error uploading an image:", uploadError);
+    startTransition(() => {
+      createProduct({ ...values, images: arr }, id).then((data) => {
+        setError(data?.error);
+        setSuccess(data?.success);
+        if (data.success) {
+          form.reset();
+          setImages(null);
         }
-      }
-      startTransition(() => {
-        createProduct({ ...values, images: arr }, id).then((data) => {
-          setError(data?.error);
-          setSuccess(data?.success);
-          if (data.success) {
-            form.reset();
-            setImages(null)
-          }
-        });
       });
-    } catch (error) {
-      console.error("Error submitting form:", error);
-    }
+    });
   };
 
   const form = useForm<z.infer<typeof CreateProduct>>({
