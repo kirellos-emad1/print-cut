@@ -25,6 +25,19 @@ export const Navbar = async () => {
         )}
         {session?.user ? (
           <>
+            {session.user.role !== "USER" ? (
+              <>
+              {session.user.role === "ADMIN"&&(
+                
+                <Button asChild>
+                  <Link href="/dashboard">Dashboard</Link>
+                </Button>
+              )}
+              <Button asChild>
+              <Link href="/dashboard/create-product">Create product</Link>
+              </Button>
+              </>
+            ) : null}
             <form
               action={async () => {
                 "use server";
