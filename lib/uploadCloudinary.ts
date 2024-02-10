@@ -4,10 +4,10 @@ export const uploadCloudinary = async (file: any) => {
     formData.append("file", file);
     formData.append(
       "upload_preset",
-      `${process.env.NEXT_PUBLIC_UPLOAD_PRESET}`
+      `${process.env.UPLOAD_PRESET}`
     );
 
-    const response = await fetch(`${process.env.NEXT_PUBLIC_CLOUDINARY_API}`, {
+    const response = await fetch(`${process.env.CLOUDINARY_API}`, {
       method: "POST",
       body: formData,
     });
