@@ -18,14 +18,14 @@ interface CardWrapperProps {
 
 export const ProductCardWrapper = ({
   children,
-  headerLabel,
   backButtonLabel,
+  headerLabel,
   backButtonHref,
 }: CardWrapperProps) => {
   return (
     <Card className="w-[350px] shadow-md">
       <CardHeader>
-        <Header label={headerLabel} />
+        <h1 className="text-3xl text-center font-semibold">{headerLabel}</h1>
       </CardHeader>
       <CardContent>{children}</CardContent>
       <CardFooter>

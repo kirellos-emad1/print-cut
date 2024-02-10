@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 export const Navbar = async () => {
   const session = await auth();
   return (
-    <nav className="flex  justify-between items-center flex-between bg-sky-300 h-20 w-full px-4">
+    <nav className="flex  justify-between items-center flex-between bg-sky-600 h-20 w-full px-4">
       <Link href="/" className="flex gap-2 flex-center">
         {/* <Image
           src="/next.svg"
